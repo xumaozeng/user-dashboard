@@ -8,6 +8,8 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "antd": "^4.9.1",
+    "babel-plugin-import": "^1.13.3",
     "dva": "^2.4.1",
     "history": "^5.0.0",
     "react": "^16.2.0",

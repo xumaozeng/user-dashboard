@@ -5,5 +5,8 @@
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
     }
-  }
+  },
+  "extraBabelPlugins": [
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+  ]
 }
