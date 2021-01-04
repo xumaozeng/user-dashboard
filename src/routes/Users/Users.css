@@ -1,0 +1,17 @@
+.normal {
+  padding: 0;
+}
+
+.header {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.operation a {
+  margin: 0 0.5em;
+}
+
+.right {
+  justify-content: flex-end;
+}
