@@ -1,4 +1,5 @@
-import { fetch } from "../services/users";
+import { fetch, remove, patch, create } from "../services/users";
+import queryString from "query-string";
 
 export default {
   namespace: "users",
@@ -23,13 +24,44 @@ export default {
           page: parseInt(page, 10)
         }
       });
+    },
+
+    // 删除
+    *remove({ payload: id }, { call, put, select }) {
+      yield call(remove, id);
+      const page = yield select((state) => state.users.page);
+      yield put({ type: "fetch", payload: { page } });
+    },
+
+    // 编辑
+    *patch({ payload: { id, values } }, { call, put, select }) {
+      yield call(patch, id, values);
+      const page = yield select((state) => state.users.page);
+      yield put({
+        type: "fetch",
+        payload: { page }
+      });
+    },
+
+    // 新增
+    *create({ payload: values }, { call, put, select }) {
+      yield call(create, values);
+      const page = yield select((state) => state.users.page);
+      yield put({
+        type: "fetch",
+        payload: { page }
+      });
     }
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(({ pathname, query }) => {
+      return history.listen((location) => {
+        const { pathname, search } = location;
         if (pathname === "/users") {
-          dispatch({ type: "fetch", payload: query || {} });
+          dispatch({
+            type: "fetch",
+            payload: queryString.parse(search.replace(/^[?]*(.*)$/, "$1"))
+          });
         }
       });
     }
